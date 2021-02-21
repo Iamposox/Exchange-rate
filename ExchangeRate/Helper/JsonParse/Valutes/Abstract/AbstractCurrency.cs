@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ExchangeRate.Helper.JsonParse {
+﻿namespace ExchangeRate.Helper.JsonParse.Valutes.Abstract {
     public abstract class AbstractCurrency {
         public string Name { get; set; }
         public float Value { get; set; }

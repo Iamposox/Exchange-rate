@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using ExchangeRate.Helper.JsonParse.Valutes.Abstract;
 
 namespace ExchangeRate.Helper.JsonParse.Valutes {
     public class EUR : AbstractCurrency {

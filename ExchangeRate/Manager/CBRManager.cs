@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
+﻿using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
-using System.Xml;
-using ExchangeRate.Configuration;
 using ExchangeRate.Helper.JsonParse;
 using ExchangeRate.Manager.Interface;
 using Newtonsoft.Json;
@@ -15,7 +10,7 @@ namespace ExchangeRate.Manager {
 
         public async Task<Dictionary<string, double>> GetRate(string requestUrl) {
             using var httpClient = new HttpClient();
-            var downloadRate = await httpClient.GetStringAsync("https://www.cbr-xml-daily.ru/daily_json.js");
+            var downloadRate = await httpClient.GetStringAsync(requestUrl);
             var rate = JsonConvert.DeserializeObject<RateCurrency>(downloadRate);
             return ConvertToDictionary(rate.Currencies);
         }
