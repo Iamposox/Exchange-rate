@@ -6,19 +6,22 @@ using ExchangeRate.Manager.Interface;
 using Newtonsoft.Json;
 
 namespace ExchangeRate.Manager {
-    public class CBRManager : IManager<CBRManager> {
+    public class CBRManager : IManager {
+        private readonly HttpClient _httpClient;
 
-        public async Task<Dictionary<string, double>> GetRate(string requestUrl) {
-            using var httpClient = new HttpClient();
-            var downloadRate = await httpClient.GetStringAsync(requestUrl);
+        public CBRManager(HttpClient httpClient) => _httpClient = httpClient;
+
+        public async Task<Dictionary<string, double>> GetRateAsync(string requestUrl) {
+            var downloadRate = await _httpClient.GetStringAsync(requestUrl);
             var rate = JsonConvert.DeserializeObject<RateCurrency>(downloadRate);
             return ConvertToDictionary(rate.Currencies);
         }
 
         private Dictionary<string, double> ConvertToDictionary(Currency rate) {
-            var rateDict = new Dictionary<string, double>();
-            rateDict.Add(rate.EUR.Name, rate.EUR.Value);
-            rateDict.Add(rate.USD.Name, rate.USD.Value);
+            var rateDict = new Dictionary<string, double>() {
+                {rate.EUR.Name, rate.EUR.Value},
+                {rate.USD.Name, rate.USD.Value}
+            };
             return rateDict;
         }
     }

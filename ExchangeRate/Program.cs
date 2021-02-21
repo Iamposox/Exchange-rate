@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using ExchangeRate.Configuration;
 using ExchangeRate.IoC;
 using Ninject;
-using ExchangeRate.Manager;
 using ExchangeRate.Manager.Interface;
 
 namespace ExchangeRate {
@@ -17,9 +16,9 @@ namespace ExchangeRate {
                 var kernel = new StandardKernel(new ServiceNinjectModule());
                 var config = kernel!.Get<Config>();
 
-                var cbrManager = kernel!.Get<IManager<CBRManager>>();
+                var cbrManager = kernel!.Get<IManager>();
 
-                var currencies = await cbrManager.GetRate(config.RequestUrl);
+                var currencies = await cbrManager.GetRateAsync(config.RequestUrl);
 
                 foreach (var pair in currencies) {
                     WriteLine($"{pair.Key,10}: {pair.Value} руб.");

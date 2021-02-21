@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 
 namespace ExchangeRate.Manager.Interface {
-    public interface IManager<T> {
-        Task<Dictionary<string, double>> GetRate(string rateXml);
+    public interface IManager {
+        Task<Dictionary<string, double>> GetRateAsync(string requestUrl);
     }
 }

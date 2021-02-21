@@ -1,4 +1,5 @@
-﻿using Ninject.Modules;
+﻿using System.Net.Http;
+using Ninject.Modules;
 using ExchangeRate.Configuration;
 using ExchangeRate.Manager;
 using ExchangeRate.Manager.Interface;
@@ -10,7 +11,8 @@ namespace ExchangeRate.IoC {
             var config = GetConfiguration<Config>("config.json");
             Bind<Config>().ToConstant(config);
 
-            Bind<IManager<CBRManager>>().To<CBRManager>();
+            Bind<HttpClient>().ToMethod(x => new HttpClient()).InSingletonScope();
+            Bind<IManager>().To<CBRManager>().InSingletonScope();
         }
 
         private TKey GetConfiguration<TKey>(string fileName) where TKey : new() {
