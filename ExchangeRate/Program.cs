@@ -21,7 +21,7 @@ namespace ExchangeRate {
                 var currencies = await cbrManager.GetRateAsync(config.RequestUrl);
 
                 foreach (var pair in currencies) {
-                    WriteLine($"{pair.Key,10}: {pair.Value} руб.");
+                    WriteLine($"{pair.Name, 10}: {pair.Value}руб.");
                 }
             } catch (Exception e) {
                 _logger.Error(e);
