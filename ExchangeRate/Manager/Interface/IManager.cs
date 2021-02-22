@@ -4,6 +4,6 @@ using ExchangeRate.Helper.JsonParse.Valutes.Abstract;
 
 namespace ExchangeRate.Manager.Interface {
     public interface IManager {
-        Task<List<AbstractCurrency>> GetRateAsync(string requestUrl);
+        Task<IEnumerable<AbstractCurrency>> GetRateAsync(string requestUrl);
     }
 }

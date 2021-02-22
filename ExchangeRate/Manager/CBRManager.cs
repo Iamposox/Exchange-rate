@@ -12,16 +12,10 @@ namespace ExchangeRate.Manager {
 
         public CBRManager(HttpClient httpClient) => _httpClient = httpClient;
 
-        public async Task<List<AbstractCurrency>> GetRateAsync(string requestUrl) {
+        public async Task<IEnumerable<AbstractCurrency>> GetRateAsync(string requestUrl) {
             var downloadRate = await _httpClient.GetStringAsync(requestUrl);
             var rate = JsonConvert.DeserializeObject<RateCurrency>(downloadRate);
-            return ConvertToList(rate.Currencies);
+            return new List<AbstractCurrency> { rate.Currencies.EUR, rate.Currencies.USD };
         }
-
-        private List<AbstractCurrency> ConvertToList(Currency rate) =>
-            new List<AbstractCurrency>() {
-                rate.EUR,
-                rate.USD
-            };
     }
 }
